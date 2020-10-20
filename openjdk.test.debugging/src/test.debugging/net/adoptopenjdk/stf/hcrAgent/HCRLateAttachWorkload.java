@@ -105,9 +105,9 @@ public class HCRLateAttachWorkload implements StfPluginInterface {
 		}
 
 		JavaProcessDefinition testProcess2 = test.createJavaProcessDefinition() 
+				.addJvmOption("-Djava.io.tmpdir=" + tmpdir)
 				.addJarToClasspath(agentJar)
 				.addJarToClasspath(toolsJar)
-				.addJvmOption("-Djava.io.tmpdir=" + tmpdir)
 				.runClass("net.adoptopenjdk.test.hcrAgent.agent.Attacher")
 				.addPerlProcessData(miniMixProcess,StfConstants.PERL_PROCESS_PID)
 				.addArg(agentJar.toString())
