@@ -21,6 +21,7 @@ import net.adoptopenjdk.stf.StfException;
 import net.adoptopenjdk.stf.extensions.interfaces.StfExtension;
 import net.adoptopenjdk.stf.environment.FileRef;
 import net.adoptopenjdk.stf.environment.JavaVersion;
+import net.adoptopenjdk.stf.environment.PlatformFinder;
 import net.adoptopenjdk.stf.environment.StfTestArguments;
 import net.adoptopenjdk.stf.extensions.core.StfCoreExtension;
 import net.adoptopenjdk.stf.extensions.core.StfCoreExtension.Echo;
@@ -29,6 +30,7 @@ import net.adoptopenjdk.stf.processes.StfProcess;
 import net.adoptopenjdk.stf.processes.definitions.JavaProcessDefinition;
 import net.adoptopenjdk.stf.processes.definitions.LoadTestProcessDefinition;
 import net.adoptopenjdk.stf.runner.modes.HelpTextGenerator;
+import net.adoptopenjdk.test.nio2.util.DirectoryTools;
 
 public class HCRLateAttachWorkload implements StfPluginInterface {
 	public void help(HelpTextGenerator help) throws StfException {
@@ -90,10 +92,23 @@ public class HCRLateAttachWorkload implements StfPluginInterface {
 		if (System.getenv("net.adoptopenjdk.test.hcrAgent.agent.StringModifierAgent.options") == null) {
 			agentOptions = "duration=240";
 		}
-		
+
+		String envTmpdir = System.getenv("TMPDIR");
+		String envTemp = System.getenv("TEMP");
+		String envTmp = System.getenv("TMP");
+		String tmpdir = System.getProperty("java.io.tmpdir");
+		System.out.println("envTmpdir is " + envTmpdir);
+		System.out.println("envTemp is " + envTemp);
+		System.out.println("envTmp is " + envTmp);
+		System.out.println("tmpdir is " + tmpdir);
+		if (PlatformFinder.isOSX()) {
+			tmpdir = "/tmp";
+		}
+
 		JavaProcessDefinition testProcess2 = test.createJavaProcessDefinition() 
 				.addJarToClasspath(agentJar)
 				.addJarToClasspath(toolsJar)
+				.addJvmOption("-Djava.io.tmpdir=" + tmpdir)
 				.runClass("net.adoptopenjdk.test.hcrAgent.agent.Attacher")
 				.addPerlProcessData(miniMixProcess,StfConstants.PERL_PROCESS_PID)
 				.addArg(agentJar.toString())
