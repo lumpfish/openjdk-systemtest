@@ -30,7 +30,6 @@ import net.adoptopenjdk.stf.processes.StfProcess;
 import net.adoptopenjdk.stf.processes.definitions.JavaProcessDefinition;
 import net.adoptopenjdk.stf.processes.definitions.LoadTestProcessDefinition;
 import net.adoptopenjdk.stf.runner.modes.HelpTextGenerator;
-import net.adoptopenjdk.test.nio2.util.DirectoryTools;
 
 public class HCRLateAttachWorkload implements StfPluginInterface {
 	public void help(HelpTextGenerator help) throws StfException {
