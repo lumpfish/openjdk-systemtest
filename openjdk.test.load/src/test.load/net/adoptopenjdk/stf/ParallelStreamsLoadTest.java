@@ -24,9 +24,9 @@ import net.adoptopenjdk.stf.runner.modes.HelpTextGenerator;
 
 import java.util.*;
 
-public class LambdaLoadTest implements StfPluginInterface {
+public class ParallelStreamsLoadTest implements StfPluginInterface {
 	public void help(HelpTextGenerator help) throws StfException {
-		help.outputSection("LambdaLoadTest runs unit tests for Lambda and Streams");
+		help.outputSection("ParallelStreamsLoadTest runs junit tests for parallel stream operations");
 		help.outputText("");
 	}
 
@@ -37,23 +37,23 @@ public class LambdaLoadTest implements StfPluginInterface {
 	}
 
 	public void execute(StfCoreExtension test) throws StfException {
-		String inventoryFile = "/openjdk.test.load/config/inventories/lambdasAndStreams/lambda.xml";
-		int cpuCount = Runtime.getRuntime().availableProcessors();
+		String inventoryFile = "/openjdk.test.load/config/inventories/lambdasAndStreams/parallelStreams.xml";
+
 		LoadTestProcessDefinition loadTestInvocation = test.createLoadTestSpecification()
-				.addJvmOption("-Xss3192K")                  // TestLambdaRecursive needs a large stack 
+				.addJvmOption("-Xmx1024M")                  // Workload test TestParallelStreamOperations requires at least 800Mb heap on openj9 non-compressed refs
 				.addPrereqJarToClasspath(JavaProcessDefinition.JarId.JUNIT)
 				.addPrereqJarToClasspath(JavaProcessDefinition.JarId.HAMCREST)
 				.addProjectToClasspath("openjdk.test.lambdasAndStreams")
-				.addSuite("lambda")                         // Start args for the first suite
-				.setSuiteThreadCount(cpuCount - 2, 2, 16)   // Leave 1 cpu for the JIT, 1 cpu for GC and set min 2. max 16
+				.setInactivityLimit("60m")                  // The test may take a long time to run with -Xint and appear to be hung to the load test harness. 
+				.addSuite("parallelStreams")                // Start args for the first suite
+				.setSuiteThreadCount(2)		                // The TestParallelStreamOperations test is self limiting to two instances running concurrently
 				.setSuiteInventory(inventoryFile)           // Point at the file which lists the tests
-				.setSuiteNumTests(3000)                     // Run this many tests
-				.setSuiteRandomSelection();                 // Randomly pick the next test each time
+				.setSuiteNumTests(2)                        // Run the TestParallelStreamOperations test once on each of the two threads
+				.setSuiteSequentialSelection();
 
-		test.doRunForegroundProcess("Run lambda and streams load test", "LT", Echo.ECHO_ON,
-				ExpectedOutcome.cleanRun().within("60m"), 
+		test.doRunForegroundProcess("Run parallel streams load test", "LT", Echo.ECHO_ON,
+				ExpectedOutcome.cleanRun().within("60m"),
 				loadTestInvocation);
-
 	}
 
 	public void tearDown(StfCoreExtension test) throws StfException {
