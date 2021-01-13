@@ -509,8 +509,8 @@ public class MemoryData extends VMData {
 
 	private void checkPeakAndCurrentMemoryUsage(MemoryUsage peak_usage, 
 			MemoryUsage current_usage, String poolName, String poolType) {
-		long peakUsageUsed = peak_usage.getUsed();
 		long currentUsageUsed = current_usage.getUsed();
+		long peakUsageUsed = peak_usage.getUsed();
 
 		if (peakUsageUsed < currentUsageUsed) {
 			Message.logErr("  Peak usage smaller than current usage here:");
