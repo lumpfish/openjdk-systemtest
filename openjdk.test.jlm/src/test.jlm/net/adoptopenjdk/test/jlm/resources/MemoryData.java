@@ -176,7 +176,7 @@ public class MemoryData extends VMData {
 					checkMemoryUsage(current_usage, "Current", "proxy");
 
 					out.println("178: Getting peak usage:");
-					peak_usage = mpb.getPeakUsage();
+					MemoryUsage peak_usage = mpb.getPeakUsage();
 					checkMemoryUsage(peak_usage, "Peak", "proxy");
 
 					String poolName = mpb.getName();
