@@ -171,15 +171,11 @@ public class MemoryData extends VMData {
 				if (mpb.isValid()) {
 					out.println("Yes"); 
 
-					out.println("Getting peak usage:");
-					MemoryUsage peak_usage = mpb.getPeakUsage();
-					checkMemoryUsage(peak_usage, "Peak", "proxy");
-
-					out.println("Getting current usage:");
+					out.println("174: Getting current usage:");
 					MemoryUsage current_usage = mpb.getUsage();
 					checkMemoryUsage(current_usage, "Current", "proxy");
 
-					out.println("Getting peak usage again:");
+					out.println("178: Getting peak usage:");
 					peak_usage = mpb.getPeakUsage();
 					checkMemoryUsage(peak_usage, "Peak", "proxy");
 
@@ -517,6 +513,8 @@ public class MemoryData extends VMData {
 			MemoryUsage current_usage, String poolName, String poolType) {
 		long currentUsageUsed = current_usage.getUsed();
 		long peakUsageUsed = peak_usage.getUsed();
+
+		out.println("517: peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 
 		if (peakUsageUsed < currentUsageUsed) {
 			Message.logErr("  Peak usage smaller than current usage here:");
