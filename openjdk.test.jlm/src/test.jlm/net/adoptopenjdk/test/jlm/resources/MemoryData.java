@@ -191,8 +191,9 @@ public class MemoryData extends VMData {
 					if (peakUsageUsed < currentUsageUsed) {
 						Message.logErr("Trace: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 						out.println("Trace: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-						Message.logErr("Trace: " + " peakUsageUsed less than currentUsageUsed, getting peak usage again");
-						out.println("Trace: " + " peakUsageUsed less than currentUsageUsed, getting peak usage again");
+						Message.logErr("Trace: " + " peakUsageUsed less than currentUsageUsed, getting values again");
+						out.println("Trace: " + " peakUsageUsed less than currentUsageUsed, getting values again");
+						current_usage = mpb.getUsage();
 						peak_usage = mpb.getPeakUsage();
 						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 						Message.logErr("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
