@@ -182,6 +182,7 @@ public class MemoryData extends VMData {
 
 					String poolName = mpb.getName();
 					String poolType = mpb.getType().toString();
+					out.println("185: Checking peak usage:");
 					checkPeakAndCurrentMemoryUsage(peak_usage, current_usage, poolName, poolType);
 
 				} else {
@@ -516,17 +517,25 @@ public class MemoryData extends VMData {
 		long peakUsageUsed = peak_usage.getUsed();
 
 		String now = String.format("%s%n", LocalDateTime.now());
-		out.println("519: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+		out.println("Trace: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+
+		out.println("Trace: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+		out.println("Trace: " + now + "  Peak usage smaller than current usage here:");
+		out.println("Trace: \" + now + \"  Memory Pool:              " + poolName);
+		out.println("Trace: \" + now + \"  Memory Type:              " + poolType);
+		out.println("Trace: \" + now + \"  Peak Usage:               " + peak_usage.toString());
+		out.println("Trace: \" + now + \"  Current Usage:            " + current_usage.toString());
 
 		if (peakUsageUsed < currentUsageUsed) {
-			out.println("522: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-			Message.logErr("523: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-			Message.logErr("524: " + now + "  Peak usage smaller than current usage here:");
-			Message.logErr("525: \" + now + \"  Memory Pool:              " + poolName);
-			Message.logErr("526: \" + now + \"  Memory Type:              " + poolType);
-			Message.logErr("527: \" + now + \"  Peak Usage:               " + peak_usage.toString());
-			Message.logErr("528: \" + now + \"  Current Usage:            " + current_usage.toString());
-			Assert.fail("529: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
+			out.println("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+			Message.logErr("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+			Message.logErr("Trace 2: " + now + "  Peak usage smaller than current usage here:");
+			Message.logErr("Trace 2: \" + now + \"  Memory Pool:              " + poolName);
+			Message.logErr("Trace 2: \" + now + \"  Memory Type:              " + poolType);
+			Message.logErr("Trace 2: \" + now + \"  Peak Usage:               " + peak_usage.toString());
+			Message.logErr("Trace 2: \" + now + \"  Current Usage:            " + current_usage.toString());
+			closeLogFile();
+			Assert.fail("Trace 2: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
 		}
 	}
 
