@@ -534,21 +534,13 @@ public class MemoryData extends VMData {
 		String now = String.format("%s%n", LocalDateTime.now());
 		out.println("Trace: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 
-		out.println("Trace: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-		out.println("Trace: " + now + "  Peak usage smaller than current usage here:");
-		out.println("Trace: \" + now + \"  Memory Pool:              " + poolName);
-		out.println("Trace: \" + now + \"  Memory Type:              " + poolType);
-		out.println("Trace: \" + now + \"  Peak Usage:               " + peak_usage.toString());
-		out.println("Trace: \" + now + \"  Current Usage:            " + current_usage.toString());
-
 		if (peakUsageUsed < currentUsageUsed) {
-			out.println("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-			Message.logErr("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-			Message.logErr("Trace 2: " + now + "  Peak usage smaller than current usage here:");
-			Message.logErr("Trace 2: \" + now + \"  Memory Pool:              " + poolName);
-			Message.logErr("Trace 2: \" + now + \"  Memory Type:              " + poolType);
-			Message.logErr("Trace 2: \" + now + \"  Peak Usage:               " + peak_usage.toString());
-			Message.logErr("Trace 2: \" + now + \"  Current Usage:            " + current_usage.toString());
+			Message.logErr("peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+			Message.logErr("Peak usage smaller than current usage here:");
+			Message.logErr("  Memory Pool:              " + poolName);
+			Message.logErr("  Memory Type:              " + poolType);
+			Message.logErr("  Peak Usage:               " + peak_usage.toString());
+			Message.logErr("  Current Usage:            " + current_usage.toString());
 			closeLogFile();
 			Assert.fail("Trace 2: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
 		}
