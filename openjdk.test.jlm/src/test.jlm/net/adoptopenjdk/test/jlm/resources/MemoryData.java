@@ -183,6 +183,16 @@ public class MemoryData extends VMData {
 					String poolName = mpb.getName();
 					String poolType = mpb.getType().toString();
 					out.println("185: Checking peak usage:");
+					long currentUsageUsed = current_usage.getUsed();
+					long peakUsageUsed = peak_usage.getUsed();
+
+					out.println("Trace: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+
+					if (peakUsageUsed < currentUsageUsed) {
+						out.println("Trace: " + " peakUsageUsed less than currentUsageUsed, getting peak usage again");
+						peak_usage = mpb.getPeakUsage();
+						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+					}
 					checkPeakAndCurrentMemoryUsage(peak_usage, current_usage, poolName, poolType);
 
 				} else {
@@ -527,6 +537,7 @@ public class MemoryData extends VMData {
 		out.println("Trace: \" + now + \"  Current Usage:            " + current_usage.toString());
 
 		if (peakUsageUsed < currentUsageUsed) {
+			out.println("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 			out.println("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 			Message.logErr("Trace 2: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 			Message.logErr("Trace 2: " + now + "  Peak usage smaller than current usage here:");
