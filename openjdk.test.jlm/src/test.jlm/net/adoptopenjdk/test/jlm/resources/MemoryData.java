@@ -29,6 +29,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 import java.rmi.ConnectException;
 import java.rmi.UnmarshalException;
 import java.text.DateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -514,15 +515,17 @@ public class MemoryData extends VMData {
 		long currentUsageUsed = current_usage.getUsed();
 		long peakUsageUsed = peak_usage.getUsed();
 
-		out.println("517: peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+		String now = String.format("%s%n", LocalDateTime.now());
+		out.println("519: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 
 		if (peakUsageUsed < currentUsageUsed) {
-			Message.logErr("  Peak usage smaller than current usage here:");
-			Message.logErr("  Memory Pool:              " + poolName);
-			Message.logErr("  Memory Type:              " + poolType);
-			Message.logErr("  Peak Usage:               " + peak_usage.toString());
-			Message.logErr("  Current Usage:            " + current_usage.toString());
-			Assert.fail("Peak Usage used memory smaller than Current Usage used memory");
+			out.println("522: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+			Message.logErr("523: " + now + "  Peak usage smaller than current usage here:");
+			Message.logErr("524: \" + now + \"  Memory Pool:              " + poolName);
+			Message.logErr("525: \" + now + \"  Memory Type:              " + poolType);
+			Message.logErr("526: \" + now + \"  Peak Usage:               " + peak_usage.toString());
+			Message.logErr("527: \" + now + \"  Current Usage:            " + current_usage.toString());
+			Assert.fail("528: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
 		}
 	}
 
