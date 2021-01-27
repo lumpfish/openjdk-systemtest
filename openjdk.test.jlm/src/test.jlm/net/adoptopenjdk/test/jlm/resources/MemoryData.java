@@ -520,12 +520,13 @@ public class MemoryData extends VMData {
 
 		if (peakUsageUsed < currentUsageUsed) {
 			out.println("522: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-			Message.logErr("523: " + now + "  Peak usage smaller than current usage here:");
-			Message.logErr("524: \" + now + \"  Memory Pool:              " + poolName);
-			Message.logErr("525: \" + now + \"  Memory Type:              " + poolType);
-			Message.logErr("526: \" + now + \"  Peak Usage:               " + peak_usage.toString());
-			Message.logErr("527: \" + now + \"  Current Usage:            " + current_usage.toString());
-			Assert.fail("528: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
+			Message.logErr("523: " + now + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+			Message.logErr("524: " + now + "  Peak usage smaller than current usage here:");
+			Message.logErr("525: \" + now + \"  Memory Pool:              " + poolName);
+			Message.logErr("526: \" + now + \"  Memory Type:              " + poolType);
+			Message.logErr("527: \" + now + \"  Peak Usage:               " + peak_usage.toString());
+			Message.logErr("528: \" + now + \"  Current Usage:            " + current_usage.toString());
+			Assert.fail("529: \" + now + \"Peak Usage used memory smaller than Current Usage used memory");
 		}
 	}
 
