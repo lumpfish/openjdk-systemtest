@@ -195,6 +195,8 @@ public class MemoryData extends VMData {
 						out.println("Trace: " + " peakUsageUsed less than currentUsageUsed, getting values again");
 						current_usage = mpb.getUsage();
 						peak_usage = mpb.getPeakUsage();
+						currentUsageUsed = current_usage.getUsed();
+						peakUsageUsed = peak_usage.getUsed();
 						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 						Message.logErr("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 					}
@@ -417,6 +419,28 @@ public class MemoryData extends VMData {
 					// Get the ObjectName that the MemoryMXBean is registered by
 					String poolName = (String)mbs.getAttribute(mpb, "Name");
 					String poolType = (String)mbs.getAttribute(mpb, "Type");
+
+					out.println("185: Checking peak usage:");
+					long currentUsageUsed = current_usage.getUsed();
+					long peakUsageUsed = peak_usage.getUsed();
+
+					out.println("Trace 2: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+
+					if (peakUsageUsed < currentUsageUsed) {
+						Message.logErr("Trace 2: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+						out.println("Trace 2: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+						Message.logErr("Trace 2: " + " peakUsageUsed less than currentUsageUsed, getting values again");
+						out.println("Trace 2: " + " peakUsageUsed less than currentUsageUsed, getting values again");
+						cd = (CompositeData)(mbs.getAttribute(mpb, "Usage"));
+						current_usage = MemoryUsage.from(cd);
+						cd = (CompositeData)(mbs.getAttribute(mpb, "PeakUsage"));
+						peak_usage = MemoryUsage.from(cd);
+						currentUsageUsed = current_usage.getUsed();
+						peakUsageUsed = peak_usage.getUsed();
+						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+						Message.logErr("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+					}
+
 					checkPeakAndCurrentMemoryUsage(peak_usage, current_usage, poolName, poolType);
 				} else {
 					out.println("No"); 
