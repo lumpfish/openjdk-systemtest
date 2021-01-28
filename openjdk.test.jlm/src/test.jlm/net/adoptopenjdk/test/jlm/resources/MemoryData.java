@@ -193,12 +193,12 @@ public class MemoryData extends VMData {
 						out.println("Trace: " + " peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
 						Message.logErr("Trace: " + " peakUsageUsed less than currentUsageUsed, getting values again");
 						out.println("Trace: " + " peakUsageUsed less than currentUsageUsed, getting values again");
-						current_usage = mpb.getUsage();
-						peak_usage = mpb.getPeakUsage();
-						currentUsageUsed = current_usage.getUsed();
-						peakUsageUsed = peak_usage.getUsed();
-						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-						Message.logErr("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+						MemoryUsage current_usage_2 = mpb.getUsage();
+						MemoryUsage peak_usage_2 = mpb.getPeakUsage();
+						long currentUsageUsed_2 = current_usage_2.getUsed();
+						long peakUsageUsed_2 = peak_usage_2.getUsed();
+						out.println("Trace: " + " new values peakUsageUsed_2 = " + peakUsageUsed_2 + ", currentUsageUsed_2 = " + currentUsageUsed_2);
+						Message.logErr("Trace: " + " new values peakUsageUsed_2 = " + peakUsageUsed_2 + ", currentUsageUsed_2 = " + currentUsageUsed_2);
 					}
 					checkPeakAndCurrentMemoryUsage(peak_usage, current_usage, poolName, poolType);
 
@@ -432,13 +432,13 @@ public class MemoryData extends VMData {
 						Message.logErr("Trace 2: " + " peakUsageUsed less than currentUsageUsed, getting values again");
 						out.println("Trace 2: " + " peakUsageUsed less than currentUsageUsed, getting values again");
 						cd = (CompositeData)(mbs.getAttribute(mpb, "Usage"));
-						current_usage = MemoryUsage.from(cd);
+						MemoryUsage current_usage_2 = MemoryUsage.from(cd);
 						cd = (CompositeData)(mbs.getAttribute(mpb, "PeakUsage"));
-						peak_usage = MemoryUsage.from(cd);
-						currentUsageUsed = current_usage.getUsed();
-						peakUsageUsed = peak_usage.getUsed();
-						out.println("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
-						Message.logErr("Trace: " + " new values peakUsageUsed = " + peakUsageUsed + ", currentUsageUsed = " + currentUsageUsed);
+						MemoryUsage peak_usage_2 = MemoryUsage.from(cd);
+						long currentUsageUsed_2 = current_usage_2.getUsed();
+						long peakUsageUsed_2 = peak_usage_2.getUsed();
+						out.println("Trace: " + " new values peakUsageUsed_2 = " + peakUsageUsed_2 + ", currentUsageUsed_2 = " + currentUsageUsed_2);
+						Message.logErr("Trace: " + " new values peakUsageUsed_2 = " + peakUsageUsed_2 + ", currentUsageUsed_2 = " + currentUsageUsed_2);
 					}
 
 					checkPeakAndCurrentMemoryUsage(peak_usage, current_usage, poolName, poolType);
